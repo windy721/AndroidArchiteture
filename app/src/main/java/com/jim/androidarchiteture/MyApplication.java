@@ -10,11 +10,19 @@ import com.jim.androidarchiteture.internal.di.modules.AppModule;
  * Created by JimGong on 2016/4/28.
  */
 public class MyApplication extends Application {
+    public static MyApplication sInstance;
+
+    public static MyApplication getInstance() {
+        return sInstance;
+    }
+
     AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sInstance = this;
         init();
     }
 
