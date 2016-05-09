@@ -1,6 +1,7 @@
 package com.jim.androidarchiteture.data.net;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,7 +31,18 @@ public class VolleyUtil {
 
     private static RequestQueue mQueue = null;
 
+    private static boolean checkInit() {
+        if (null == sContext) {
+            Log.e("VolleyUtil", "VolleyUtil - null == sContext");
+            return false;
+        }
+        return true;
+    }
+
     public synchronized static void syncRequest(Request request) {
+        if (!checkInit()) {
+            return;
+        }
         if (mQueue == null) {
             mQueue = Volley.newRequestQueue(sContext);
         }
@@ -38,10 +50,12 @@ public class VolleyUtil {
             interceptor(request, "utf-8");
         }
         addRequest(mQueue, request);
-
     }
 
     public synchronized static void syncMultiPartRequest(MultiPartStringRequest request) {
+        if (!checkInit()) {
+            return;
+        }
         RequestQueue queue = Volley.newRequestQueue(sContext, new MultiPartStack());
         addRequest(queue, request);
     }
