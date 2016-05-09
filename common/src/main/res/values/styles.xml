@@ -1,0 +1,12 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--<item name="colorAccent">@color/actionbar</item>-->
+        <!--<item name="android:textColorPrimary">@color/app_black</item>-->
+        <!--<item name="android:dialogTitle"></item>-->
+        <!--<item name="android:textColor">@color/app_black</item>-->
+        <!--<item name="android:positiveButtonText">@string/ok</item>-->
+        <!--<item name="android:negativeButtonText">@string/cancel</item>-->
+    </style>
+
+</resources>
