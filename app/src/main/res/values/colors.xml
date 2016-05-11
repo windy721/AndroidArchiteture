@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- Common -->
+    <color name="cancel_btn_pressed">#ededed</color>
+
     <!-- Divider -->
     <color name="divider_main">#d8d8d8</color>
 </resources>
