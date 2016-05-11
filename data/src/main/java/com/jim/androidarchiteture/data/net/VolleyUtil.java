@@ -4,11 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.jim.androidarchiteture.common.AppConfig;
 import com.jim.androidarchiteture.common.AppLog;
+import com.jim.androidarchiteture.common.ClientInfo;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -60,11 +62,11 @@ public class VolleyUtil {
         addRequest(queue, request);
     }
 
-
-    private static void addRequest(RequestQueue queue,Request request){
-//        if (!ClientInfo.isNetOk(context)) {
-//            ToastOfJH.showBadNetToast(context);
-//        }
+    private static void addRequest(RequestQueue queue, Request request){
+        if (!ClientInfo.isNetOk(sContext)) {
+            request.getErrorListener().onErrorResponse(new NoConnectionError());
+            return;
+        }
 
         queue.add(request);
     }
