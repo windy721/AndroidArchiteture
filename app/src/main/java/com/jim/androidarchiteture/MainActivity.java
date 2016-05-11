@@ -8,12 +8,12 @@ import com.jim.androidarchiteture.activity.BaseActivity;
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void createActivityView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
 
         initInject();
         init();
+        getToolBar();
     }
 
     private void initInject() {
