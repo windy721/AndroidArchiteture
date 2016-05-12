@@ -2,6 +2,7 @@ package com.jim.androidarchiteture;
 
 import android.app.Application;
 
+import com.jim.androidarchiteture.data.net.VolleyUtil;
 import com.jim.androidarchiteture.internal.di.components.AppComponent;
 import com.jim.androidarchiteture.internal.di.components.DaggerAppComponent;
 import com.jim.androidarchiteture.internal.di.modules.AppModule;
@@ -23,10 +24,15 @@ public class MyApplication extends Application {
         super.onCreate();
 
         sInstance = this;
+        initInject();
         init();
     }
 
     private void init() {
+        VolleyUtil.init(this);
+    }
+
+    private void initInject() {
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this))
                 .build();
         mAppComponent.inject(this);

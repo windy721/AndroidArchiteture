@@ -52,13 +52,12 @@ public class BasePostRequest extends CustomStringRequest {
         //String umengDeviceToken= ClientInfo.getUmengDeviceToken(context);
 
         mParams.put("platform", "android");
-        mParams.put("imei", imei);
-        mParams.put("osInfo", osInfo);
-        mParams.put("model", model);
-        mParams.put("channel", channel);
-        //mParams.put("umengDeviceToken",umengDeviceToken);
-        mParams.put("currentVer", versionName);
-        mParams.put("login", TokenManager.getInstance().getToken());
+        mParams.put("imei", String.valueOf(imei));
+        mParams.put("osInfo", String.valueOf(osInfo));
+        mParams.put("model", String.valueOf(model));
+        mParams.put("channel", String.valueOf(channel));
+        mParams.put("currentVer", String.valueOf(versionName));
+        mParams.put("login", String.valueOf(TokenManager.getInstance().getToken()));
         return mParams;
     }
 }

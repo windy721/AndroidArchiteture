@@ -263,7 +263,11 @@ public class ClientInfo {
     public static String getIMEI(Context context) {
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
-        String imei = tm.getSimSerialNumber();
+        String imei = null;
+        try {
+            imei = tm.getSimSerialNumber();
+        } catch (Exception exception) {
+        }
         if (imei == null || imei.equals("")) {
             imei = "imei";
         }
