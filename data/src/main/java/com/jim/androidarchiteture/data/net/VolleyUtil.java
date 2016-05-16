@@ -26,9 +26,11 @@ import java.util.Map;
  */
 public class VolleyUtil {
     static Context sContext;
+    static Map<String, String> sNetBaseParameter;
 
-    public static void init(Context pApplicationContext) {
+    public static void init(Context pApplicationContext, Map<String, String> pNetBaseParameter) {
         sContext = pApplicationContext;
+        sNetBaseParameter = pNetBaseParameter;
     }
 
     private static RequestQueue mQueue = null;

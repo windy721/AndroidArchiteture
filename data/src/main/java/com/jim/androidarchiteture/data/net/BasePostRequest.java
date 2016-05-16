@@ -43,21 +43,14 @@ public class BasePostRequest extends CustomStringRequest {
         if (null == VolleyUtil.sContext) {
             return null;
         }
-        Context context = VolleyUtil.sContext;
-        String imei = ClientInfo.getIMEI(context);
-        String osInfo = ClientInfo.getOSInfo(context);
-        String model = ClientInfo.getModel(context);
-        String channel = ClientInfo.getApplicationMetaData(context, "UMENG_CHANNEL");
-        String versionName = ClientInfo.getAppVersion(context);
-        //String umengDeviceToken= ClientInfo.getUmengDeviceToken(context);
 
-        mParams.put("platform", "android");
-        mParams.put("imei", String.valueOf(imei));
-        mParams.put("osInfo", String.valueOf(osInfo));
-        mParams.put("model", String.valueOf(model));
-        mParams.put("channel", String.valueOf(channel));
-        mParams.put("currentVer", String.valueOf(versionName));
+        Map netBaseParam = VolleyUtil.sNetBaseParameter;
+        if (null != netBaseParam) {
+            mParams.putAll(netBaseParam);
+        }
+
         mParams.put("login", String.valueOf(TokenManager.getInstance().getToken()));
+
         return mParams;
     }
 }
