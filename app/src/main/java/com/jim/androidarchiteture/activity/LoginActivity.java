@@ -8,7 +8,8 @@ import android.widget.EditText;
 import com.jim.androidarchiteture.R;
 import com.jim.androidarchiteture.activity.iview.ILoginView;
 import com.jim.androidarchiteture.common.viewutil.ToastOfJH;
-import com.jim.androidarchiteture.entity.AppError;
+import com.jim.androidarchiteture.data.entity.AppError;
+import com.jim.androidarchiteture.data.net.architeture.BaseMessage;
 import com.jim.androidarchiteture.presenter.LoginPresenter;
 
 import butterknife.Bind;
@@ -50,13 +51,13 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void onLoginSuccess(String response) {
-        ToastOfJH.showToast(this, response);
-        Log.e("TEST", "Result: " + response);
+    public void onRequestSuccess(int taskId, BaseMessage message) {
+        ToastOfJH.showToast(this, (String) message.mMessageObject);
+        Log.e("TEST", "Result: " + message.mMessageObject);
     }
 
     @Override
-    public void onLoginError(AppError pError) {
-        ToastOfJH.showToast(this, pError.message);
+    public void onRequestError(int taskId, AppError error) {
+        ToastOfJH.showToast(this, error.message);
     }
 }

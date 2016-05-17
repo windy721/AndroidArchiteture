@@ -12,6 +12,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -25,6 +26,7 @@ import java.util.Locale;
  * To change this template use File | Settings | File Templates.
  */
 public class ClientInfo {
+    private static final String TAG = "ClientInfo";
     // 渠道号
     public static String fromId = "9100701";
     private static String clienInfo;
@@ -267,6 +269,7 @@ public class ClientInfo {
         try {
             imei = tm.getSimSerialNumber();
         } catch (Exception exception) {
+            Log.e(TAG, exception.getMessage(), exception);
         }
         if (imei == null || imei.equals("")) {
             imei = "imei";

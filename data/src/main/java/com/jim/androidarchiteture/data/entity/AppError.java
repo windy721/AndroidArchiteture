@@ -1,4 +1,4 @@
-package com.jim.androidarchiteture.entity;
+package com.jim.androidarchiteture.data.entity;
 
 import com.android.volley.NetworkError;
 import com.android.volley.VolleyError;
