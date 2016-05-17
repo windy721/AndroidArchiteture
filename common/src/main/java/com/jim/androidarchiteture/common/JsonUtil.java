@@ -92,6 +92,10 @@ public class JsonUtil {
 		if (null == jsonData)
 			return null;
 
+		if (String.class == c) {
+			return (T)jsonData;
+		}
+
 		Gson gson = new Gson();
 		T obj = null;
 		try {
