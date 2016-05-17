@@ -2,7 +2,6 @@ package com.jim.androidarchiteture.api;
 
 import com.jim.androidarchiteture.activity.iview.ILoginView;
 import com.jim.androidarchiteture.data.net.architeture.ApiRequest;
-import com.jim.androidarchiteture.data.net.architeture.ApiRequestManager;
 import com.jim.androidarchiteture.data.net.architeture.Task;
 
 import java.util.HashMap;
