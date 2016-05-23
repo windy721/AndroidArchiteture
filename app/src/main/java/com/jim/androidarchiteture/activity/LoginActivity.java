@@ -33,6 +33,9 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
         ButterKnife.bind(this);
         mLoginPresenter = new LoginPresenter(this, this);
+
+        setToolBarTitle("Login");
+        setToolBarCloseOnNevigationClick(false);
     }
 
     @OnClick(R.id.login_loginBtn)

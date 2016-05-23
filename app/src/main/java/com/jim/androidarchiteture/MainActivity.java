@@ -28,6 +28,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
+        setToolBarTitle(R.string.app_name);
+        setToolBarCloseOnNevigationClick(false);
         Toast.makeText(this, "XXX: " + mToolBar, Toast.LENGTH_SHORT).show();
     }
 
