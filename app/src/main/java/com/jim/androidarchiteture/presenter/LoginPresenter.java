@@ -11,18 +11,20 @@ import com.jim.androidarchiteture.data.net.architeture.ApiRequestManager;
 /**
  * Created by JimGong on 2016/5/11.
  */
-public class LoginPresenter {
+public class LoginPresenter extends BasePresenter<ILoginView> {
     private Context mContext;
-    private ILoginView mLoginView;
 
     public LoginPresenter(Context pContext, ILoginView pLoginView) {
         mContext = pContext;
-        mLoginView = pLoginView;
+        attachView(pLoginView);
     }
 
     public void login() {
-        String userName = mLoginView.getUserName();
-        String passwords = mLoginView.getPasswords();
+        if (!isViewAttached()) {
+            return;
+        }
+        String userName = getView().getUserName();
+        String passwords = getView().getPasswords();
         if (StringUtils.isBlank(userName)) {
             ToastOfJH.showToast(mContext, "Please input the user name.");
             return;
@@ -32,6 +34,6 @@ public class LoginPresenter {
             return;
         }
 
-        ApiRequestManager.getInstance().post(new LoginApi.LoginRequest(mLoginView, userName, passwords));
+        ApiRequestManager.getInstance().post(new LoginApi.LoginRequest(getViewHolder(), userName, passwords));
     }
 }

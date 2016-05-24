@@ -38,6 +38,14 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         setToolBarCloseOnNevigationClick(false);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mLoginPresenter) {
+            mLoginPresenter.detachView();
+        }
+    }
+
     @OnClick(R.id.login_loginBtn)
     public void onClick(View pView) {
         mLoginPresenter.login();

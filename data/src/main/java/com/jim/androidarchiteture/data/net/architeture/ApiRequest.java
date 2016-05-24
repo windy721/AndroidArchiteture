@@ -2,6 +2,7 @@ package com.jim.androidarchiteture.data.net.architeture;
 
 import com.jim.androidarchiteture.data.net.architeture.annotation.RequestInfo;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
 /**
@@ -9,17 +10,17 @@ import java.util.HashMap;
  */
 public abstract class ApiRequest {
     Object mLockObject = new Object();
-    ApiResponseListener mApiResponseListener;
-    protected ApiRequest(ApiResponseListener pApiResponseListener) {
-        mApiResponseListener = pApiResponseListener;
+    WeakReference<? extends ApiResponseListener> mApiResponseListenerHolder;
+    protected ApiRequest(WeakReference<? extends ApiResponseListener> pApiResponseListener) {
+        mApiResponseListenerHolder = pApiResponseListener;
     }
 
     protected String getBaseUrl() {
         return ApiRequestManager.getBaseUrl();
     }
 
-    public ApiResponseListener getResponseListener() {
-        return mApiResponseListener;
+    public WeakReference<? extends ApiResponseListener> getResponseListenerHolder() {
+        return mApiResponseListenerHolder;
     }
 
     /** use for {@link ApiRequest#getRequestInfo()) only **/

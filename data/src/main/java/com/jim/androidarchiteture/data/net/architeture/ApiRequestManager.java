@@ -14,6 +14,7 @@ import com.jim.androidarchiteture.data.net.MultiPartStringRequest;
 import com.jim.androidarchiteture.data.net.VolleyUtil;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,23 +56,31 @@ public final class ApiRequestManager {
         String url = pApiRequest.getUrl();
         HashMap<String, String> mParams = pApiRequest.getParameters();
         final Class responseType = pApiRequest.getResponseType();
-        final ApiResponseListener responseListener = pApiRequest.getResponseListener();
+        final WeakReference<? extends ApiResponseListener> responseListener = pApiRequest.getResponseListenerHolder();
 
         BasePostRequest request = new BasePostRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 AppLog.e("onResponse=%s", response);
+                ApiResponseListener listener = responseListener.get();
                 if (hasError(response)) {
-                    responseListener.onRequestError(taskId, getError());
+                    if (null != listener) {
+                        listener.onRequestError(taskId, getError());
+                    }
                     return;
                 }
                 Object responseObj = JsonUtil.parseJsonObj(response, responseType);
-                responseListener.onRequestSuccess(taskId, new BaseMessage(responseObj));
+                if (null != listener) {
+                    listener.onRequestSuccess(taskId, new BaseMessage(responseObj));
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseListener.onRequestError(taskId, AppError.getNetworkError());
+                ApiResponseListener listener = responseListener.get();
+                if (null != listener) {
+                    listener.onRequestError(taskId, AppError.getNetworkError());
+                }
             }
         }, mParams);
         syncRequest(request);
@@ -82,23 +91,31 @@ public final class ApiRequestManager {
         String url = pApiRequest.getUrl();
         HashMap<String, Object> mParams = pApiRequest.getParameters();
         final Class responseType = pApiRequest.getResponseType();
-        final ApiResponseListener responseListener = pApiRequest.getResponseListener();
+        final WeakReference<? extends ApiResponseListener> responseListener = pApiRequest.getResponseListenerHolder();
 
         MultiPartStringRequest request = new MultiPartStringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                ApiResponseListener listener = responseListener.get();
                 if (hasError(response)) {
-                    responseListener.onRequestError(taskId, getError());
+                    if (null != listener) {
+                        listener.onRequestError(taskId, getError());
+                    }
                     return;
                 }
                 Object responseObj = JsonUtil.parseJsonObj(response, responseType);
-                responseListener.onRequestSuccess(taskId, new BaseMessage(responseObj));
+                if (null != listener) {
+                    listener.onRequestSuccess(taskId, new BaseMessage(responseObj));
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseListener.onRequestError(taskId, AppError.getNetworkError());
+                ApiResponseListener listener = responseListener.get();
+                if (null != listener) {
+                    listener.onRequestError(taskId, AppError.getNetworkError());
+                }
                 error.printStackTrace();
             }
         });
