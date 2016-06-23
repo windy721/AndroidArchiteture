@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -16,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -25,4 +30,13 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.3+'
     compile 'de.greenrobot:eventbus:2.4.0'
+}
+
+publish {
+    userOrg = 'windy721'
+    groupId = 'com.windy721'
+    artifactId = 'common'
+    publishVersion = '1.0.0'
+    desc = 'The common Android library project.'//描述，不重要
+    //website = 'https://github.com/hyman/basetools'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }
